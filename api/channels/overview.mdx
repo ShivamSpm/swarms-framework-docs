@@ -137,7 +137,7 @@ The base class has no `close()` method. The built-in channels that hold a connec
 
 Pass the channel as `Agent(channel=...)`. On each `run(task)`:
 
-1. **Read.** The agent calls `channel.messages()` and sends every earlier message to the model as prior turns, under the speaker's name.
+1. **Read.** The agent calls `channel.messages()` and sends every earlier message to the model as prior turns. A message from another speaker arrives as a user turn that starts with their name, such as `Researcher: Growth was 31%.` The agent's own earlier answers arrive as its assistant turns. Messages under its `user_name` arrive unchanged.
 2. **Post the task once.** It posts the task under the agent's `user_name` (default `"Human"`), unless that exact message is already in the channel. Several agents sharing a channel and running the same task therefore record it once.
 3. **Run.** The agent runs as usual.
 4. **Post the answer.** After a successful run it posts its final answer under its `agent_name`. A run that raises posts nothing. The answer is the agent's last message, not the whole transcript that `output_type` may return.

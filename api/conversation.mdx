@@ -210,7 +210,7 @@ def to_messages(
 **Returns:** A list of chat messages, built row by row:
 - A row recorded by `record_assistant()` with tool calls becomes an `assistant` message carrying `tool_calls`, followed by one `tool` message per call. A call with no recorded result gets `(no result recorded for <tool name>)`.
 - A row whose role is already `system`, `user`, `assistant`, or `tool` (lower case) passes through with its `role`, `content`, `name`, `tool_calls`, and `tool_call_id`, read from the row or its `metadata`.
-- Any other row becomes `assistant` when its role equals `agent_name` and `user` otherwise, with its content as a string. Rows whose role is `System` or `Tool Executor`, or whose content is `None`, are skipped.
+- Any other row becomes `assistant` when its role equals `agent_name` and `user` otherwise, with its content as a string. When the row or its `metadata` has a `speaker`, the content starts with `<speaker>: `. `Agent` sets `speaker` on each channel post from another speaker. Rows whose role is `System` or `Tool Executor`, or whose content is `None`, are skipped.
 
 Because `System` rows are skipped, the system prompt row and the `MEMORY.md` preload are not part of the result.
 
