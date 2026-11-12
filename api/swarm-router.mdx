@@ -196,7 +196,7 @@ These are only consulted when the corresponding `swarm_type` is selected.
 </ParamField>
 
 <ParamField path="heavy_swarm_timeout" type="int" default="900">
-  Per-worker wall-clock cap, in seconds, for `HeavySwarm`.
+  Per-worker wall-clock cap, in seconds, for `HeavySwarm`. Question generation and synthesis also wait at most this long.
 </ParamField>
 
 <ParamField path="worker_tools" type="List[Callable]" optional>

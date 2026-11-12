@@ -155,6 +155,7 @@ swarm = HeavySwarm(variant="heavy")
 
 <ParamField path="timeout" type="int" default="900">
   Seconds passed to each worker future's `result()` call. Results are read as workers finish, so it does not interrupt a running worker.
+  Question generation and synthesis also wait at most `timeout` seconds for their model call, then raise `TimeoutError`.
 </ParamField>
 
 <ParamField path="question_agent_model_name" type="str" default="gpt-5.4">
@@ -401,6 +402,8 @@ swarm = HeavySwarm(timeout=900)
 ```
 
 The timeout is passed to `future.result()` after `as_completed()` has already returned that future, so it does not cut a slow worker short.
+
+Question generation and synthesis wait at most `timeout` seconds for their model call. If the call hasn't returned by then, `run()` raises `TimeoutError` naming the phase. Python can't stop the call's thread, so it finishes in the background.
 
 ### Verbose Logging
 
