@@ -220,10 +220,10 @@ When no custom members are provided, the default council includes:
 |---|---|---|---|
 | `GPT-5.1-Councilor` | `gpt-5.1` | 0.7 | Analytical and comprehensive |
 | `Gemini-3-Pro-Councilor` | `gemini/gemini-3.5-flash-lite` | 0.7 (ignored) | Concise and well-structured |
-| `Claude-Sonnet-4.5-Councilor` | `anthropic/claude-sonnet-4-5` | 0.0 | Thoughtful and balanced |
+| `Claude-Sonnet-4.5-Councilor` | `anthropic/claude-sonnet-5-5` | not set | Thoughtful and balanced |
 | `Grok-4-Councilor` | `xai/grok-4-1-fast-reasoning` | 0.8 | Creative and innovative |
 
-The agent names do not always match the model: the Gemini councilor runs on `gemini/gemini-3.5-flash-lite`, which ignores sampling settings such as temperature. The default council calls four providers, so you need API keys for OpenAI, Anthropic, xAI, and Google (`GEMINI_API_KEY` or `GOOGLE_API_KEY`).
+The agent names do not always match the model: the Gemini councilor runs on `gemini/gemini-3.5-flash-lite`, which ignores sampling settings such as temperature, and the Claude councilor runs on `anthropic/claude-sonnet-5-5`, which rejects them, so it sets none. The default council calls four providers, so you need API keys for OpenAI, Anthropic, xAI, and Google (`GEMINI_API_KEY` or `GOOGLE_API_KEY`).
 
 ## Prompts
 
