@@ -73,6 +73,8 @@ def route_task(self, task: str) -> dict
 
 **Returns:** The formatted conversation history (shaped by `output_type`), containing the user task and the response(s) that were appended to it.
 
+**Raises:** `ValueError` when the boss model's reply isn't JSON or has no `handoffs`. The message names the router, the boss model and the first 200 characters of the reply.
+
 <Note>
   When the boss selects multiple agents, `handle_multiple_handoffs()` runs all of them concurrently but only appends the **first** selected agent's response to the conversation — every other agent's output is computed and then discarded. The boss's `reasoning` is never added to the conversation either (it is only printed to the console when `print_on=True`), so it is not present in the returned result.
 </Note>
