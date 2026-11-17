@@ -87,6 +87,10 @@ GroupChat(
   When `True` (default), the `RESPOND_TOOL` schema is automatically injected into any agent that does not already carry it, and that agent's LLM client is rebuilt so the forced tool call works. Set to `False` only if you equip every agent with `RESPOND_TOOL` yourself.
 </ParamField>
 
+<Note>
+  The bid is sent as a forced `respond` call. An agent with reasoning set, or on a model that LiteLLM lists as rejecting a forced choice (such as Claude Sonnet 5.5 and Opus 5.5), gets `tool_choice="auto"` instead, so it can answer in prose. A prose answer counts as no bid. The same rule applies wherever swarms forces a tool call: the HierarchicalSwarm director, the PlannerWorkerSwarm planner and HeavySwarm's question generator.
+</Note>
+
 <ParamField path="channel" type="CommsChannel" default="None">
   A comms channel the chat posts to: the task as `User`, then each message that wins a turn. Bids are not posted. Any channel set on a member agent is detached with a warning, so each message is posted once. See [Comms Channels](/api/channels/overview).
 </ParamField>
