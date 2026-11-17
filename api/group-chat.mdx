@@ -88,7 +88,7 @@ GroupChat(
 </ParamField>
 
 <Note>
-  The bid is sent as a forced `respond` call. An agent with reasoning set, or on a model that LiteLLM lists as rejecting a forced choice (such as Claude Sonnet 5.5 and Opus 5.5), gets `tool_choice="auto"` instead, so it can answer in prose. If a provider rejects the forced choice for a model the list doesn't cover, the call is retried once with `"auto"`. A prose answer counts as no bid. The same rule applies wherever swarms forces a tool call: the HierarchicalSwarm director, the PlannerWorkerSwarm planner and HeavySwarm's question generator.
+  The bid is sent as a forced `respond` call. An agent with reasoning set, or on a model that LiteLLM lists as rejecting a forced choice (such as Claude Sonnet 5.5 and Opus 5.5), gets `tool_choice="auto"` instead, so it can answer in prose. If a provider answers that a forced choice is unsupported for a model the list doesn't cover, the call is retried once with `"auto"`; any other `tool_choice` error, such as a tool name that isn't in the tools, still raises. A prose answer counts as no bid. The same rule applies wherever swarms forces a tool call: the HierarchicalSwarm director, the PlannerWorkerSwarm planner and HeavySwarm's question generator.
 </Note>
 
 <ParamField path="channel" type="CommsChannel" default="None">
