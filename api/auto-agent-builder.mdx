@@ -17,7 +17,7 @@ name, description, system_prompt, model_name
 The builder designs the team and stops there. It does **not** choose a multi-agent architecture and it does **not** execute anything, so you decide what runs the roster.
 
 <Note>
-The roster arrives as tool-call arguments, so there is no markdown fence to strip and no JSON to extract from a paragraph. The tool is offered with `tool_choice="auto"`, so the model is not strictly forced to call it; if it answers without a usable call, `build_configs()` raises `ValueError` rather than retrying. This is the main behavioral difference from [`AutoSwarmBuilder`](/api/auto-swarm-builder), which uses structured output with repair retries and also selects a `swarm_type` for you.
+The roster arrives as tool-call arguments, so there is no markdown fence to strip and no JSON to extract from a paragraph. The request forces the call: `tool_choice` names `build_agents`, so the model can't answer in prose. If the call's arguments hold no usable agent, `build_configs()` raises `ValueError` rather than retrying. This is the main behavioral difference from [`AutoSwarmBuilder`](/api/auto-swarm-builder), which uses structured output with repair retries and also selects a `swarm_type` for you.
 </Note>
 
 ## Class Definition
