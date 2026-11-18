@@ -25,7 +25,7 @@ pip install -U swarms
 | `ExpertPanelDiscussion` | Expert panel with a moderator guiding rounds | Professional discussions, expert opinions |
 
 <Note>
-  None of these orchestrators records the task itself, so the first recorded message is the first agent's reply. The default `output_type="str-all-except-first"` leaves that reply out and joins the rest without speaker names. Pass `output_type="str"` for a labelled transcript of every turn, or `"list"` to iterate messages.
+  `OneOnOneDebate` and `one_on_one_debate` don't record the task, so their first recorded message is the first agent's reply, and the default `output_type="str-all-except-first"` leaves that reply out. `ExpertPanelDiscussion` records the task first, so the same default leaves out only the task and keeps every turn. The default joins the turns without speaker names. Pass `output_type="str"` for a labelled transcript of every turn, or `"list"` to iterate messages.
 </Note>
 
 ## OneOnOneDebate
@@ -143,9 +143,9 @@ print(transcript)
 
 ## ExpertPanelDiscussion
 
-Simulates an expert panel discussion with a moderator guiding the conversation. Before the first round, the moderator and each expert are briefed on the panel's participants. Each round, the moderator introduces the topic, every expert responds in turn to the moderator's message, and the moderator then synthesises the responses into a follow-up question that becomes the next round's topic.
+Simulates an expert panel discussion with a moderator guiding the conversation. Each run starts every agent on a fresh conversation, so a reused panel doesn't resend its last discussion. In the first round, the moderator's and each expert's prompt opens with who is on the panel. Each round, the moderator introduces the topic, every expert responds in turn to the moderator's message, and the moderator then synthesises the responses into a follow-up question that becomes the next round's topic.
 
-The moderator receives the round's expert replies as a labelled transcript, one `Expert_Name: reply` block per expert. A run makes `1 + N + max_rounds * (N + 2)` agent calls for `N` experts.
+The moderator receives the round's expert replies as a labelled transcript, one `Expert_Name: reply` block per expert. A run makes `max_rounds * (N + 2)` agent calls for `N` experts.
 
 Like `OneOnOneDebate`, the panel records whatever each agent's `run()` returns. Give the moderator and experts `output_type="final"` so only their replies are recorded and passed on.
 
@@ -180,7 +180,7 @@ def run(self, task: str)
 </ParamField>
 
 <ResponseField name="return" type="str | list | dict">
-  The conversation history, formatted according to `output_type`.
+  The conversation history, formatted according to `output_type`. The task is its first message.
 </ResponseField>
 
 <Warning>
