@@ -18,7 +18,7 @@ pip install -U swarms
 
 1. **Dispatch**: Task sent to all council members in parallel
 2. **Respond**: Each member independently answers the task
-3. **Evaluate**: Every member reviews and ranks all responses, which are relabelled `Response A`, `Response B`, and so on in a shuffled order. Evaluations run concurrently
+3. **Evaluate**: Every member reviews and ranks all responses, which are relabelled `Response A`, `Response B`, and so on in a shuffled order. Each member's history is cleared first, so its own earlier answer isn't in its context while it ranks. Evaluations run concurrently
 4. **Synthesize**: The Chairman receives every response under its member's name, every evaluation, and the mapping from anonymous IDs to members, and writes the final answer
 
 Each `run` starts from an empty conversation, so reusing a council for several tasks never mixes their transcripts.
